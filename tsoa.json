@@ -1,0 +1,26 @@
+{
+    "entryFile": "src/startup.ts",
+    "noImplicitAdditionalProperties": "silently-remove-extras",
+    "spec": {
+      "outputDirectory": "public",
+      "specVersion": 3,
+      "host": "localhost:5000",
+      "basePath": "/api/v1",
+      "schemes": ["http", "https"],
+      "securityDefinitions": {
+        "features": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+        }
+      }
+    },
+    "routes": {
+        "basePath": "/api/v1",
+        "routesDir": "./src/middleware",
+        "middleware": "express",
+        "authenticationModule": "./src/middleware/auth.ts",
+        "controllerPathGlobs": ["./src/controllers/*"],
+        "iocModule": "src/middleware/ioc"
+    }
+  }
