@@ -1,6 +1,6 @@
 import { injectable } from "tsyringe";
-import { PagedData } from "../shared/repositories/PagedData";
-import { User, UserExtended } from "./user.model";
+import { PagedData } from "../../shared/repositories/PagedData";
+import { User, UserExtended } from "../entities/user";
 
 @injectable()
 export class UserRepository {
@@ -28,6 +28,13 @@ export class UserRepository {
             }] 
         }];
     }
+
+    public async insert(user: UserExtended): Promise<UserExtended> {
+        // TODO: Implement method
+        console.log('insert user', user)
+        return user;
+    }
+
 
     private mapUser(user: UserExtended): User {
         return {

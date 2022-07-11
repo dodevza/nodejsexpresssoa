@@ -1,7 +1,7 @@
 import { singleton } from "tsyringe";
-import { FeatureRepository } from "../../users/feature.repository";
-import { Role, RoleExtended } from "../../users/role.model";
-import { RoleRepository } from "../../users/role.repository";
+import { FeatureRepository } from "../../users/repositories/feature.repository";
+import { Role, RoleExtended } from "../../users/entities/role";
+import { RoleRepository } from "../../users/repositories/role.repository";
 
 @singleton()
 export class RoleFeatureStore {

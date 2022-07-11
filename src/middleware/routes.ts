@@ -20,7 +20,7 @@ const models: TsoaRoute.Models = {
     "User": {
         "dataType": "refObject",
         "properties": {
-            "Id": {"dataType":"double","required":true},
+            "Id": {"dataType":"double"},
             "FirstName": {"dataType":"string","required":true},
             "LastName": {"dataType":"string","required":true},
             "Email": {"dataType":"string","required":true},
@@ -35,6 +35,26 @@ const models: TsoaRoute.Models = {
             "pageSize": {"dataType":"double","required":true},
             "pageOffset": {"dataType":"double","required":true},
             "count": {"dataType":"double","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "CreateUserCommandResponse": {
+        "dataType": "refObject",
+        "properties": {
+            "Id": {"dataType":"double","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "CreateUserCommand": {
+        "dataType": "refObject",
+        "properties": {
+            "FirstName": {"dataType":"string","required":true},
+            "LastName": {"dataType":"string","required":true},
+            "Email": {"dataType":"string","required":true},
+            "Roles": {"dataType":"array","array":{"dataType":"string"},"required":true},
+            "Password": {"dataType":"string","required":true},
         },
         "additionalProperties": false,
     },
@@ -54,7 +74,6 @@ const models: TsoaRoute.Models = {
         "dataType": "refObject",
         "properties": {
             "token": {"dataType":"string","required":true},
-            "refreshToken": {"dataType":"string","required":true},
         },
         "additionalProperties": false,
     },
@@ -102,6 +121,37 @@ export function RegisterRoutes(app: express.Router) {
 
 
               const promise = controller.getAll.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.post('/api/v1/users',
+            authenticateMiddleware([{"features":["users.add"]}]),
+            ...(fetchMiddlewares<RequestHandler>(UsersController)),
+            ...(fetchMiddlewares<RequestHandler>(UsersController.prototype.create)),
+
+            async function UsersController_create(request: any, response: any, next: any) {
+            const args = {
+                    command: {"in":"body","name":"command","required":true,"ref":"CreateUserCommand"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const container: IocContainer = typeof iocContainer === 'function' ? (iocContainer as IocContainerFactory)(request) : iocContainer;
+
+                const controller: any = await container.get<UsersController>(UsersController);
+                if (typeof controller['setStatus'] === 'function') {
+                controller.setStatus(undefined);
+                }
+
+
+              const promise = controller.create.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

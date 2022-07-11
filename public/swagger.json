@@ -23,7 +23,6 @@
 					}
 				},
 				"required": [
-					"Id",
 					"FirstName",
 					"LastName",
 					"Email"
@@ -61,6 +60,50 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"CreateUserCommandResponse": {
+				"properties": {
+					"Id": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"Id"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateUserCommand": {
+				"properties": {
+					"FirstName": {
+						"type": "string"
+					},
+					"LastName": {
+						"type": "string"
+					},
+					"Email": {
+						"type": "string"
+					},
+					"Roles": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"Password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"FirstName",
+					"LastName",
+					"Email",
+					"Roles",
+					"Password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"AuthClaims": {
 				"properties": {
 					"FirstName": {
@@ -92,14 +135,10 @@
 				"properties": {
 					"token": {
 						"type": "string"
-					},
-					"refreshToken": {
-						"type": "string"
 					}
 				},
 				"required": [
-					"token",
-					"refreshToken"
+					"token"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -167,6 +206,42 @@
 					}
 				],
 				"parameters": []
+			},
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CreateUserCommandResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [
+					{
+						"features": [
+							"users.add"
+						]
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateUserCommand"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/users/current": {

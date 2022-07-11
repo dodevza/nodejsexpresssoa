@@ -1,10 +1,11 @@
-import { Get, Route, Security, Tags } from "tsoa";
+import { Body, Get, Post, Route, Security, Tags } from "tsoa";
 import { injectable } from "tsyringe";
 import { AuthClaims } from "../shared/auth/auth-claims";
 import { AuthService } from "../shared/auth/auth.service";
 import { PagedData } from "../shared/repositories/PagedData";
-import { User } from "../users/user.model";
-import { UserRepository } from "../users/user.repository";
+import { CreateUserCommand, CreateUserCommandHandler, CreateUserCommandResponse } from "../users/commands/create-user.command";
+import { User } from "../users/entities/user";
+import { UserRepository } from "../users/repositories/user.repository";
 
 @injectable()
 @Tags("User")
@@ -13,6 +14,7 @@ export class UsersController {
 
     constructor(
       private userRepository: UserRepository,
+      private createUserCommandHandler: CreateUserCommandHandler,
       private authService: AuthService) {
       
       
@@ -22,6 +24,12 @@ export class UsersController {
     @Get("/")
     public async getAll(): Promise<PagedData<User>> {
       return this.userRepository.getAll();
+    }
+
+    @Security("features", ["users.add"])
+    @Post("/")
+    public async create(@Body()command: CreateUserCommand): Promise<CreateUserCommandResponse> {
+        return await this.createUserCommandHandler.execute(command);
     }
 
     @Get("/current")

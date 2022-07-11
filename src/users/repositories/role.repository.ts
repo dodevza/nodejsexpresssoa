@@ -1,6 +1,6 @@
 import { injectable } from "tsyringe";
-import { PagedData } from "../shared/repositories/PagedData";
-import { Role, RoleExtended } from "./role.model";
+import { PagedData } from "../../shared/repositories/PagedData";
+import { Role, RoleExtended } from "../entities/role";
 
 @injectable()
 export class RoleRepository {

@@ -1,5 +1,5 @@
 import { PagedData } from "../../shared/repositories/PagedData";
-import { User, UserExtended } from "../../users/user.model";
+import { User, UserExtended } from "../../users/entities/user";
 
 export class UserMockRepository {
     public getAll(): PagedData<User> {

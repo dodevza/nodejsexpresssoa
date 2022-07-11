@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { singleton } from "tsyringe";
-import { UserRepository } from "../../users/user.repository";
+import { UserRepository } from "../../users/repositories/user.repository";
 import { AuthToken } from "./auth-token";
 import jwt, {JwtPayload, SignOptions, VerifyOptions} from 'jsonwebtoken';
 import { AuthClaims } from './auth-claims';

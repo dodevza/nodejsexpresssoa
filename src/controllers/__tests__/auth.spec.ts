@@ -5,7 +5,7 @@ import { createServer } from '../../middleware/server'
 import { Logger } from '../../shared/logging/logger'
 import { iocPipeline } from '../../middleware/ioc'
 import { DependencyContainer } from 'tsyringe'
-import { UserRepository } from '../../users/user.repository'
+import { UserRepository } from '../../users/repositories/user.repository'
 import { UserMockRepository } from '../../testing/__mocks__/user-mock.repository'
 import { registerMock } from '../../testing/register-mock'
 

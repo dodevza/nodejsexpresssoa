@@ -1,6 +1,6 @@
 import { injectable } from "tsyringe";
-import { PagedData } from "../shared/repositories/PagedData";
-import { Feature } from "./feature.model";
+import { PagedData } from "../../shared/repositories/PagedData";
+import { Feature } from "../entities/feature";
 
 @injectable()
 export class FeatureRepository {

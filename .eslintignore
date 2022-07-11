@@ -1,3 +1,4 @@
 node_modules
 dist
 src/middleware/routes.ts
+jest.config.js

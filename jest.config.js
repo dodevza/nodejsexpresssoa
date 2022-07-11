@@ -1,13 +1,8 @@
-import { config } from "dotenv-flow";
-import { expand } from "dotenv-expand";
-import { Logger } from "./src/shared/logging/logger";
-
-const environmentVariables = config({
+const environmentVariables = require("dotenv-flow").config({
     path: 'config',
 })
-expand(environmentVariables)
+require("dotenv-expand").expand(environmentVariables)
 
-Logger.initialize();
 
 module.exports = {
     preset: 'ts-jest',
