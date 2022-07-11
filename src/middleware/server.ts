@@ -21,15 +21,6 @@ export async function createServer(): Promise<Express> {
 
     RegisterRoutes(server);
 
-    server.use((_req, res: express.Response) => {
-      Logger.verbose("Not Found", _req.url);
-      res.status(404).json({
-        message: "Not Found",
-      });
-    });
-
-    server.use(exceptionHandler);
-
     // Swagger
     server.use(
         "/docs",
@@ -40,6 +31,15 @@ export async function createServer(): Promise<Express> {
           },
         })
       );
+
+      server.use((_req, res: express.Response) => {
+        Logger.verbose("Not Found", _req.url);
+        res.status(404).json({
+          message: "Not Found",
+        });
+      });
+  
+      server.use(exceptionHandler);
 
     return server;
 }
