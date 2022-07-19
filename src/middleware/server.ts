@@ -17,6 +17,13 @@ export async function createServer(): Promise<Express> {
     server.options('*', corsConfig);
     server.use(express.json());
     server.use(morgan("tiny"));
+    if (process.env.VIRTUAL_PATH) {
+      server.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
+        const regex = new RegExp(`^(.*)${process.env.VIRTUAL_PATH}\\/+(.*)$`, "ig");
+        req.url = req.url.replace(regex, "$1$2");
+        next();
+      })
+    }
     server.use(express.static("public"));
 
     RegisterRoutes(server);
